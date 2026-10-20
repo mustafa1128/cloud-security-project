@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Team & roles · CloudShield{% endblock %}
+{% block content %}
+<div class="page-heading"><div><div class="eyebrow">IDENTITY & ACCESS MANAGEMENT</div><h1>Team & roles</h1><p class="muted">Only admins can create accounts. Give each fictional team member the minimum role needed.</p></div></div>
+<div class="two-col">
+<div class="form-card"><h2>Create team member</h2><form method="post">
+{{ form.hidden_tag() }}
+<label>{{ form.username.label }}{{ form.username(autocomplete="off", placeholder="e.g. sec.leyla") }}</label>{% for e in form.username.errors %}<small class="error">{{ e }}</small>{% endfor %}
+<label>{{ form.password.label }}{{ form.password(autocomplete="new-password", placeholder="Use a unique password") }}</label>{% for e in form.password.errors %}<small class="error">{{ e }}</small>{% endfor %}
+<label>{{ form.role.label }}{{ form.role() }}</label>
+{{ form.submit(class_="button") }}
+</form></div>
+<div class="role-card"><h2>Permission model</h2>
+{% for role, description in roles.items() %}<div class="role-row"><span class="role-pill">{{ role }}</span><p>{{ description }}</p></div>{% endfor %}
+</div></div>
+<section class="panel"><h2>Current accounts</h2><div class="table-wrap"><table><thead><tr><th>Username</th><th>Role</th><th>Created (UTC)</th></tr></thead><tbody>{% for u in users %}<tr><td>{{ u.username }}</td><td><span class="role-pill">{{ u.role }}</span></td><td>{{ u.created_at[:19].replace('T',' ') }}</td></tr>{% endfor %}</tbody></table></div></section>
+{% endblock %}
