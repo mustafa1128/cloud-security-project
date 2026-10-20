@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Sign in · CloudShield{% endblock %}
+{% block content %}
+<div class="form-card"><h1>Welcome back</h1><p>Sign in to the secure project workspace.</p>
+<form method="post">
+  {{ form.hidden_tag() }}
+  <label>{{ form.username.label }}{{ form.username(autocomplete="username", placeholder="Username") }}</label>
+  {% for e in form.username.errors %}<small class="error">{{ e }}</small>{% endfor %}
+  <label>{{ form.password.label }}{{ form.password(autocomplete="current-password", placeholder="Password") }}</label>
+  {% for e in form.password.errors %}<small class="error">{{ e }}</small>{% endfor %}
+  {{ form.submit(class_="button") }}
+</form><p class="muted">First visit? <a href="{{ url_for('setup') }}">Create the initial admin</a>.</p></div>
+{% endblock %}
