@@ -1,0 +1,3 @@
+{% extends "base.html" %}
+{% block title %}{{ code }} · CloudShield{% endblock %}
+{% block content %}<div class="form-card"><div class="eyebrow">REQUEST BLOCKED</div><h1>{{ code }}</h1><p>{{ message }}</p><a class="button" href="{{ url_for('index') }}">Return home</a></div>{% endblock %}
