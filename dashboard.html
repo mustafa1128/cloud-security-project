@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Dashboard · CloudShield{% endblock %}
+{% block content %}
+<div class="page-heading"><div><div class="eyebrow">TEAM WORKSPACE</div><h1>Task dashboard</h1><p class="muted">Signed in as <strong>{{ user.username }}</strong> · {{ role_descriptions[user.role] }}</p></div>
+{% if user.role in ['admin','security','engineer'] %}<a class="button" href="{{ url_for('new_task') }}">＋ New task</a>{% endif %}</div>
+<div class="summary-row"><div class="summary"><span>Total tasks</span><strong>{{ tasks|length }}</strong></div><div class="summary"><span>Open</span><strong>{{ tasks|selectattr('status','equalto','Open')|list|length }}</strong></div><div class="summary"><span>Done</span><strong>{{ tasks|selectattr('status','equalto','Done')|list|length }}</strong></div></div>
+<section class="task-list">
+{% if tasks %}
+  {% for task in tasks %}
+  <article class="task">
+    <div class="task-main"><div class="task-title-row"><h3>{{ task.title }}</h3><span class="status {{ task.status|lower|replace(' ','-') }}">{{ task.status }}</span></div>
+      <p>{{ task.details }}</p><div class="task-meta">Assigned to <strong>{{ task.owner_name or 'Unassigned' }}</strong> · Created by {{ task.creator_name }} · {{ task.created_at[:10] }}</div>
+    </div>
+    {% if user.role in ['admin','security','engineer'] %}
+    <form class="status-form" method="post" action="{{ url_for('update_status', task_id=task.id) }}">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+      <label class="sr-only" for="status-{{ task.id }}">Task status</label>
+      <select id="status-{{ task.id }}" name="status">
+        {% for s in ['Open','In progress','Done'] %}<option value="{{ s }}" {% if task.status == s %}selected{% endif %}>{{ s }}</option>{% endfor %}
+      </select><button class="button small" type="submit">Save</button>
+    </form>{% endif %}
+  </article>
+  {% endfor %}
+{% else %}<div class="empty"><div class="icon">📋</div><h3>Your board is ready</h3><p>Create a task to start documenting your team's work.</p></div>{% endif %}
+</section>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}New task · CloudShield{% endblock %}
+{% block content %}
+<div class="form-card wide"><div class="eyebrow">PROJECT TRACKER</div><h1>Create a task</h1><p>Task details are encrypted before they are written to the database. Do not enter real credentials or highly sensitive information.</p>
+<form method="post">
+{{ form.hidden_tag() }}
+<label>{{ form.title.label }}{{ form.title(placeholder="e.g. Review cloud storage permissions") }}</label>{% for e in form.title.errors %}<small class="error">{{ e }}</small>{% endfor %}
+<label>{{ form.details.label }}{{ form.details(rows="5", placeholder="Describe the work, expected outcome and acceptance criteria…") }}</label>{% for e in form.details.errors %}<small class="error">{{ e }}</small>{% endfor %}
+<label>{{ form.owner_id.label }}{{ form.owner_id() }}</label>
+{{ form.submit(class_="button") }} <a class="button secondary" href="{{ url_for('dashboard') }}">Cancel</a>
+</form></div>
+{% endblock %}

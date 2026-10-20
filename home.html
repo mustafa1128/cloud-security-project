@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero">
+  <div class="eyebrow">CLOUD SECURITY · ROLE-BASED ACCESS · CRYPTOGRAPHY</div>
+  <h1>A small taskboard.<br><span>Security built in.</span></h1>
+  <p class="lead">A working project workspace for a fictional team. Assign tasks, manage role permissions, and encrypt task details at rest.</p>
+  <div class="actions"><a class="button" href="{{ url_for('setup') }}">Set up administrator</a><a class="button secondary" href="{{ url_for('login') }}">Sign in</a></div>
+</section>
+<section class="cards">
+  <article><div class="icon">🔐</div><h3>Cryptography</h3><p>Passwords are stored as salted password hashes. Task details are encrypted using Fernet symmetric authenticated encryption.</p></article>
+  <article><div class="icon">🛡️</div><h3>Access control</h3><p>Admin, Security, Engineer, HR and Viewer roles have different permissions enforced on the server.</p></article>
+  <article><div class="icon">☁️</div><h3>Cloud-ready</h3><p>Gunicorn production server, secure cookie option, security headers and a Render deployment blueprint.</p></article>
+</section>
+<div class="notice"><strong>Class project:</strong> This is a starter demo, not a production-certified security product. Review the included report and deployment checklist before making it public.</div>
+{% endblock %}

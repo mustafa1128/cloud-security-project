@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: cloud-security-taskboard
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app --workers 2 --bind 0.0.0.0:$PORT
+    healthCheckPath: /
+    envVars:
+      - key: APP_SECRET_KEY
+        generateValue: true
+      - key: FERNET_KEY
+        sync: false
+      - key: COOKIE_SECURE
+        value: "1"
+      - key: DATABASE_PATH
+        value: /var/data/app.db
+    disk:
+      name: taskboard-data
+      mountPath: /var/data
+      sizeGB: 1
