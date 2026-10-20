@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}First-time setup · CloudShield{% endblock %}
+{% block content %}
+<div class="form-card"><h1>First-time setup</h1><p>Create the first administrator. This page disables itself once an account exists.</p>
+<form method="post">
+  {{ form.hidden_tag() }}
+  <label>{{ form.username.label }}{{ form.username(autocomplete="username", placeholder="e.g. projectadmin") }}</label>
+  {% for e in form.username.errors %}<small class="error">{{ e }}</small>{% endfor %}
+  <label>{{ form.password.label }}{{ form.password(autocomplete="new-password", placeholder="At least 12 characters") }}</label>
+  {% for e in form.password.errors %}<small class="error">{{ e }}</small>{% endfor %}
+  {{ form.submit(class_="button") }}
+</form></div>
+{% endblock %}
